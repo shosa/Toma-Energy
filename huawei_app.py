@@ -36,9 +36,9 @@ root.geometry("1000x650")
 root.configure(bg="#f4f4f4")
 
 # Stili
-FONT_TITLE = ("Segoe UI", 20, "bold")
-FONT_NORMAL = ("Segoe UI", 14)
-FONT_BUTTON = ("Segoe UI", 12, "bold")
+FONT_TITLE = ("Segoe UI", 18, "bold")
+FONT_NORMAL = ("Segoe UI", 12)
+FONT_BUTTON = ("Segoe UI", 10, "bold")
 
 # Layout principale
 main_frame = tk.Frame(root, bg="#f4f4f4")
@@ -94,16 +94,18 @@ def log_message(message):
 def open_settings():
     settings_window = tk.Toplevel(root)
     settings_window.title("Impostazioni")
-    settings_window.geometry("400x300")
+    settings_window.geometry("400x150")
+    settings_window.resizable(False, False)
     
     def toggle_alarm():
         global ALARM_ENABLED
         ALARM_ENABLED = not ALARM_ENABLED
         config.set('SETTINGS', 'ALARM_ENABLED', str(ALARM_ENABLED))
         save_config()
+        log_message(f"MODIFICATE IMPOSTAZIONI")
         alarm_toggle_btn.config(text="Attivo" if ALARM_ENABLED else "Disattivo", bg="green" if ALARM_ENABLED else "red")
     
-    tk.Label(settings_window, text="ATTIVA ALLARME QUANDO PRODUZIONE = 0", font=FONT_NORMAL).pack(pady=10)
+    tk.Label(settings_window, text="ALLARME SU PRODUZIONE 0", font=FONT_NORMAL).pack(pady=10)
     alarm_toggle_btn = tk.Button(settings_window, text="Attivo" if ALARM_ENABLED else "Disattivo", bg="green" if ALARM_ENABLED else "red", command=toggle_alarm)
     alarm_toggle_btn.pack(pady=10)
     
